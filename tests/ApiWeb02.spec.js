@@ -1,5 +1,5 @@
 const { test, expect, request } = require("@playwright/test");
-const { ApiUtils } = require("./utils/APIUtils");
+const { APIUtils } = require("./utils/APIUtils");
 const loginPayLoad = {
   userName: "0937213638",
   password: "123456789012",
@@ -10,13 +10,13 @@ let token;
 
 test.beforeAll(async () => {
   const apiContex = await request.newContext();
-  const ApiUtils = new ApiUtils(apiContex, loginPayLoad);
+  const apiUtils = new APIUtils(apiContex, loginPayLoad);
+  //apiUtils.getToken();
+  apiUtils.viewCourse();
+  apiUtils.createOrder();
 });
-//test.beforeEach(() => {});
-
-//test01
 test("Login Test", async ({ page }) => {
-  test.setTimeout(360000); // Extend test timeout to 60 seconds
+  /*test.setTimeout(360000); // Extend test timeout to 60 seconds
   await page.goto("https://moon.vn/sign-in");
   await page.locator("flutter-view").click();
 
@@ -30,5 +30,5 @@ test("Login Test", async ({ page }) => {
   });
 
   // Optional: Wait for a specific element
-  await page.waitForSelector(".shopping-page-content", { state: "visible" });
+  await page.waitForSelector(".shopping-page-content", { state: "visible" });*/
 });
