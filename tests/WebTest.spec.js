@@ -14,7 +14,7 @@ test.beforeAll(async ({ browser }) => {
   // Tạo webContext từ trạng thái đã lưu
   webContext = await browser.newContext({ storageState: "state.json" });
 });
-test("Login Test 01", async () => {
+test("Add Order", async () => {
   const productName = "iphone 13 pro";
 
   // Kiểm tra xem webContext đã được khởi tạo chưa
@@ -41,34 +41,4 @@ test("Login Test 01", async () => {
   }
 });
 
-test("Login Test 02", async () => {
-  const page = await webContext.newPage();
-  await page.goto(
-    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/62742549e26b7e1a10e9fce0"
-  );
-
-  await page.route(
-    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/62742549e26b7e1a10e9fce0",
-    async (route) => {
-      const response = await page.request().fetch(route.request());
-      let body = fakePayload;
-      route.fulfill({
-        response,
-        body,
-      });
-    }
-  );
-  // Xử lý sản phẩm
-  const products = page.locator(".card-body");
-  const titles = await page.locator(".card-body b").allTextContents();
-  console.log(titles);
-
-  const count = await products.count();
-  for (let i = 0; i < count; ++i) {
-    if ((await products.nth(i).locator("b").textContent()) === productName) {
-      // Thêm vào giỏ hàng
-      await products.nth(i).locator("text= Add To Cart").click();
-      break;
-    }
-  }
-});
+test("Security", async () => {});
