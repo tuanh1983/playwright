@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 let webContext;
-
+const fakePayload = { data: [], message: "No Product in Cart" };
 test.beforeAll(async ({ browser }) => {
   // Đăng nhập và lưu trạng thái
   const context = await browser.newContext();
@@ -14,7 +14,6 @@ test.beforeAll(async ({ browser }) => {
   // Tạo webContext từ trạng thái đã lưu
   webContext = await browser.newContext({ storageState: "state.json" });
 });
-
 test("Login Test 01", async () => {
   const productName = "iphone 13 pro";
 
@@ -43,17 +42,22 @@ test("Login Test 01", async () => {
 });
 
 test("Login Test 02", async () => {
-  const productName = "iphone 13 pro";
-
-  // Kiểm tra xem webContext đã được khởi tạo chưa
-  if (!webContext) {
-    throw new Error("webContext is not initialized");
-  }
-
-  // Sử dụng webContext để mở trang
   const page = await webContext.newPage();
-  await page.goto("https://rahulshettyacademy.com/client");
+  await page.goto(
+    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/62742549e26b7e1a10e9fce0"
+  );
 
+  await page.route(
+    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/62742549e26b7e1a10e9fce0",
+    (route) => {
+      const reponse = page.request().fetch(route.request());
+      let body = fakePayload;
+      route.fulfill({
+        reponse,
+        body,
+      });
+    }
+  );
   // Xử lý sản phẩm
   const products = page.locator(".card-body");
   const titles = await page.locator(".card-body b").allTextContents();
