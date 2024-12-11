@@ -43,32 +43,24 @@ test("Login Test 01", async () => {
 
 test("Login Test 02", async () => {
   const page = await webContext.newPage();
-  await page.goto(
-    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/62742549e26b7e1a10e9fce0"
-  );
+  await page.goto("https://rahulshettyacademy.com/client");
 
   await page.route(
-    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/62742549e26b7e1a10e9fce0",
+    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/*",
     async (route) => {
-      const response = await page.request().fetch(route.request());
+      const response = await page.request.fetch(route.request());
       let body = fakePayload;
       route.fulfill({
+        body,
         response,
         body: JSON.stringify(body),
       });
     }
   );
-  // Xử lý sản phẩm
-  const products = page.locator(".card-body");
-  const titles = await page.locator(".card-body b").allTextContents();
-  console.log(titles);
 
-  const count = await products.count();
-  for (let i = 0; i < count; ++i) {
-    if ((await products.nth(i).locator("b").textContent()) === productName) {
-      // Thêm vào giỏ hàng
-      await products.nth(i).locator("text= Add To Cart").click();
-      break;
-    }
-  }
+  await page.locator("//button[@routerlink='/dashboard/myorders']").click();
+  await page.waitForResponse(
+    "https://rahulshettyacademy.com/api/ecom/user/get-cart-count/*"
+  );
+  console.log(await page.locator(".mt-4").textContent());
 });
