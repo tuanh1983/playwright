@@ -54,7 +54,7 @@ test("Login Test 02", async () => {
       let body = fakePayload;
       route.fulfill({
         response,
-        body: JSON.stringify(body),
+        body,
       });
     }
   );
