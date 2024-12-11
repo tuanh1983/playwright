@@ -24,6 +24,7 @@ test("Login Test 01", async () => {
 
   // Sử dụng webContext để mở trang
   const page = await webContext.newPage();
+  page.route("*/*.{jpg,png,jpeg}", (route) => route.abort());
   await page.goto("https://rahulshettyacademy.com/client");
 
   // Xử lý sản phẩm
@@ -41,7 +42,7 @@ test("Login Test 01", async () => {
   }
 });
 
-test("Login Test 02", async () => {
+test("Test Route", async () => {
   const page = await webContext.newPage();
   await page.goto("https://rahulshettyacademy.com/client");
 
