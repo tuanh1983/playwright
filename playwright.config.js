@@ -8,10 +8,11 @@ module.exports = defineConfig({
   },
   reporter: "html",
   use: {
-    trace: "on-first-retry",
+    //trace: "on-first-retry",
     browserName: "chromium",
     headless: false,
     screenshot: "on",
+    trace: "on",
   },
   projects: [
     {
