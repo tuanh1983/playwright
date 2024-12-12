@@ -13,11 +13,19 @@ module.exports = defineConfig({
     headless: false,
     screenshot: "on",
     trace: "on",
+    projects: [
+      {
+        name: "Mobile Safari",
+        use: {
+          ...devices["iPhone 13"],
+        },
+      },
+      {
+        name: "chromium",
+        use: {
+          ...devices["Desktop Chrome"],
+        },
+      },
+    ],
   },
-  projects: [
-    {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
-  ],
 });
