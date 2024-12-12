@@ -1,43 +1,33 @@
 const ExcelJS = require("exceljs");
 const workbook = new ExcelJS.Workbook();
-async function readExcel() {
-  await workbook.xlsx.readFile("test.xlsx");
+async function writeExcel(fileName, searchValue, updateValue) {
+  await workbook.xlsx.readFile(fileName);
   const worksheet = workbook.getWorksheet("Sheet1");
-
-  if (!worksheet) {
-    console.error("Worksheet 'Sheet1' not found");
-    return;
+  const result = await readExcelForScan(worksheet, searchValue);
+  console.log(`hjkhkj ${result.row} ${result.column}`);
+  if (result.row === -1 && result.column === -1) {
+    console.error("Value not found");
+  } else {
+    var cell = worksheet.getCell(result.row, result.column);
+    cell.value = updateValue;
+    await workbook.xlsx.writeFile("test.xlsx");
   }
-
-  worksheet.eachRow((row, rowNumber) => {
-    row.eachCell((cell, colNumber) => {
-      console.log(`Cell ${rowNumber}, ${colNumber}: ${cell.value}`);
-      cell.value = cell.value + " - updated";
-    });
-  });
-  await workbook.xlsx.writeFile("test.xlsx");
 }
-async function readExcelForScan() {
+async function readExcelForScan(worksheet, searchValue) {
   let output = { row: -1, column: -1 };
-  await workbook.xlsx.readFile("test.xlsx");
-  const worksheet = workbook.getWorksheet("Sheet1");
-
   if (!worksheet) {
     console.error("Worksheet 'Sheet1' not found");
     return;
   }
-
   worksheet.eachRow((row, rowNumber) => {
     row.eachCell((cell, colNumber) => {
       console.log(`Cell ${rowNumber}, ${colNumber}: ${cell.value}`);
-      if (cell.value === "scan") {
+      if (cell.value === searchValue) {
         output.row = rowNumber;
         output.column = colNumber;
       }
     });
   });
-  var cell = worksheet.getCell(output.row, output.column);
-  cell.value = cell.value + " - updated";
-  await workbook.xlsx.writeFile("test.xlsx");
+  return output;
 }
-readExcelForScan();
+writeExcel("test.xlsx", "scan", "scan01");
