@@ -40,5 +40,15 @@ test("Upload download excel validation", async ({ page }) => {
   );
   await page.locator("#fileinput").click();
   await page.locator("#fileinput").setInputFiles("download.xlsx");
+
+  await page.keyboard.press("Enter");
   const textlocator = page.getByText(textSearch);
+  const row = await page
+    .getByRole("row")
+    .filter({ has: page.getByText(textSearch) });
+  const cell = await row.locator('[data-column-id="4"] div');
+  const cellText = await cell.textContent();
+
+  console.log(cellText);
+  await expect(cell).toHaveText(updateValue);
 });
