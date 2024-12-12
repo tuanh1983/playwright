@@ -24,7 +24,7 @@ test("Login Test 01", async () => {
 
   // Sử dụng webContext để mở trang
   const page = await webContext.newPage();
-  page.route("*/*.{jpg,png,jpeg}", (route) => route.abort());
+  page.route("**/*.{jpg,png,jpeg}", (route) => route.abort());
   await page.goto("https://rahulshettyacademy.com/client");
 
   // Xử lý sản phẩm
