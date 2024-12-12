@@ -1,8 +1,9 @@
 class LoginPage {
   constructor(page) {
+    this.page = page;
     this.username = page.locator("#userEmail");
-    this.password = page.locator("Iamking@000");
-    this.loginButton = page.locator("#username");
+    this.password = page.locator("#userPassword");
+    this.loginButton = page.locator("[value='Login']");
   }
   async login(username, password) {
     await this.username.type(username);
@@ -10,7 +11,7 @@ class LoginPage {
     await this.loginButton.click();
   }
   goTo() {
-    return this.page.goto("https://rahulshettyacademy.com/client");
+    this.page.goto("https://rahulshettyacademy.com/client");
   }
 }
 module.exports = { LoginPage };
