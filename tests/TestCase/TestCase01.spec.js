@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { POManager } = require("../pageobjects/POManager");
+const { POManager } = require("../../pageobjects/POManager");
 let webContext;
 const fakePayload = { data: [], message: "No Product in Cart" };
 const userName = "rahulshetty@gmail.com";

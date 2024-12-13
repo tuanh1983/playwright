@@ -1,5 +1,5 @@
 const { test, expect, request } = require("@playwright/test");
-const { APIUtils } = require("./utils/APIUtils");
+const { APIUtils } = require("../../utils/APIUtils");
 const loginPayLoad = {
   userName: "0937213638",
   password: "123456789012",
