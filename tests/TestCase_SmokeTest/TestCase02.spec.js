@@ -3,7 +3,7 @@ const { POManager } = require("../../pageobjects/POManager");
 const loginData = require("../../data/loginData.json");
 const testData = require("../../data/testDataTC01.json");
 
-myTest(`@regressionTest Login Test 01`, async ({ page, testDataForOrder }) => {
+myTest(`@smokeTest Login Test 01`, async ({ page, testDataForOrder }) => {
   // Đăng nhập và lưu trạng thái
   const poManager = new POManager(page);
   const loginPage = poManager.getLoginPage();

@@ -13,9 +13,7 @@ test.describe.configure({
 });
 
 for (const data of testData) {
-  test(`@regressionTest Login Test 01 ${data.searchProduct}`, async ({
-    page,
-  }) => {
+  test(`@smokeTest Login Test 01 ${data.searchProduct}`, async ({ page }) => {
     // Đăng nhập và lưu trạng thái
     const poManager = new POManager(page);
     const loginPage = poManager.getLoginPage();

@@ -12,7 +12,7 @@ module.exports = defineConfig({
     //trace: "on-first-retry",
     browserName: "chromium",
     //video: "on",
-    headless: false,
+    headless: true,
     screenshot: "on",
     trace: "off",
     projects: [

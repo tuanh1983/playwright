@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "regression": "npx playwright test --grep \"@regressionTest\"",
+    "smokeTest": "npx playwright test --grep \"@smokeTest\""
   },
   "keywords": [],
   "author": "",
@@ -12,6 +14,7 @@
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.10.1",
+    "allure-playwright": "^3.0.7",
     "eslint": "^9.16.0",
     "prettier": "^3.4.2"
   },
