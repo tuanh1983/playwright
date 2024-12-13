@@ -9,7 +9,7 @@ module.exports = defineConfig({
   reporter: "html",
   use: {
     //trace: "on-first-retry",
-    browserName: "chromium",
+    browserName: "webkit",
     headless: false,
     screenshot: "on",
     trace: "off",
