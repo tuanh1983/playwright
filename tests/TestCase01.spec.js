@@ -1,7 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { LoginPage } = require("../pageobjects/LoginPage");
-const { ProductPage } = require("../pageobjects/ProductPage");
-
+const { POManager } = require("../pageobjects/POManager");
 let webContext;
 const fakePayload = { data: [], message: "No Product in Cart" };
 const userName = "rahulshetty@gmail.com";
@@ -12,14 +10,15 @@ test.beforeAll(async ({ browser }) => {
   // Đăng nhập và lưu trạng thái
   const page = await browser.newPage();
   const context = await browser.newContext();
-  const loginPage = new LoginPage(page);
+  const poManager = new POManager(page);
+  const loginPage = new poManager.getLoginPage();
   await loginPage.goTo();
   await loginPage.login(userName, password);
   await page.waitForLoadState("networkidle");
   await context.storageState({ path: "state.json" });
   // Tạo webContext từ trạng thái đã lưu
   webContext = await browser.newContext({ storageState: "state.json" });
-  const productPage = new ProductPage(page);
+  const productPage = new poManager.getProductPage();
   await productPage.searchProduct(searchProduct);
   await productPage.goToCart();
 });
