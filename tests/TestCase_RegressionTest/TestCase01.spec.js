@@ -7,7 +7,11 @@ const fakePayload = { data: [], message: "No Product in Cart" };
 const userName = loginData.userName;
 const password = loginData.password;
 const searchProduct = testData.searchProduct;
-
+test.describe.configure({
+  retries: 2,
+  timeout: 30000,
+  mode: "parallel",
+});
 for (const data of testData) {
   test(`Login Test 01 ${data.searchProduct}`, async ({ page }) => {
     // Đăng nhập và lưu trạng thái

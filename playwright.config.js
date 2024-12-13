@@ -3,6 +3,7 @@ const { defineConfig, devices } = require("@playwright/test");
 module.exports = defineConfig({
   testDir: "./tests",
   fullyParallel: true,
+  workers: 2,
   expect: {
     timeout: 5000,
   },
@@ -11,7 +12,7 @@ module.exports = defineConfig({
     //trace: "on-first-retry",
     browserName: "chromium",
     //video: "on",
-    headless: true,
+    headless: false,
     screenshot: "on",
     trace: "off",
     projects: [
