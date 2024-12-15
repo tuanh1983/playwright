@@ -1,7 +1,7 @@
 {
   "name": "playwright",
   "version": "1.0.0",
-  "description": "",
+  "description": "This repository contains an automation testing framework built using **Playwright**, designed for efficient, scalable, and maintainable end-to-end testing. It employs the **Page Object Model (POM)** design pattern and integrates with **Allure** for detailed test reporting.",
   "main": "index.js",
   "scripts": {
     "format": "prettier --write .",
@@ -21,5 +21,8 @@
   "dependencies": {
     "excel": "^1.0.1",
     "exceljs": "^4.4.0"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
